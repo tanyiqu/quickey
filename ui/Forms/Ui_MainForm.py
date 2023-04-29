@@ -14,17 +14,19 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(686, 332)
+        Form.resize(913, 690)
         Form.setStyleSheet("")
+        self.verticalLayout = QtWidgets.QVBoxLayout(Form)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.actionTable = QtWidgets.QTableWidget(Form)
+        self.actionTable.setObjectName("actionTable")
+        self.actionTable.setColumnCount(0)
+        self.actionTable.setRowCount(0)
+        self.verticalLayout.addWidget(self.actionTable)
         self.widget = QtWidgets.QWidget(Form)
-        self.widget.setGeometry(QtCore.QRect(20, -10, 788, 485))
-        self.widget.setStyleSheet("")
+        self.widget.setMinimumSize(QtCore.QSize(0, 300))
         self.widget.setObjectName("widget")
-        self.comboBox = QtWidgets.QComboBox(self.widget)
-        self.comboBox.setGeometry(QtCore.QRect(20, 40, 87, 21))
-        self.comboBox.setObjectName("comboBox")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
+        self.verticalLayout.addWidget(self.widget)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -32,5 +34,3 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "quickey"))
-        self.comboBox.setItemText(0, _translate("Form", "F1"))
-        self.comboBox.setItemText(1, _translate("Form", "F2"))

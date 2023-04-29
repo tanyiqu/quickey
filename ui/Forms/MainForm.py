@@ -7,7 +7,7 @@ from PyQt5.QtCore import QPoint, QRectF
 from PyQt5.QtGui import QMouseEvent, QColor, QPainter, QPainterPath, QBrush
 
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QAction, QWidget
+from PyQt5.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QAction, QWidget, QAbstractItemView, QTableWidgetItem, QHeaderView
 
 
 class MainForm(QWidget):
@@ -28,7 +28,7 @@ class MainForm(QWidget):
         # 创建系统托盘对象
         self.tray_icon = QSystemTrayIcon(self)
         self.tray_icon.setIcon(QIcon('resource/imgs/b.png'))
-        self.tray_icon.setToolTip('My Application')
+        self.tray_icon.setToolTip('quickey')
 
         # 创建右键菜单
         self.menu = QMenu(self)
@@ -39,6 +39,9 @@ class MainForm(QWidget):
         self.menu.addAction(show_action)
         self.menu.addAction(quit_action)
 
+        # 点击图标显示主窗口
+        self.tray_icon.activated.connect(self.onTrayActivated)
+
         # 将右键菜单设置为托盘对象的菜单
         self.tray_icon.setContextMenu(self.menu)
 
@@ -46,6 +49,55 @@ class MainForm(QWidget):
         self.hide()
         self.tray_icon.show()
 
+        self.mainTable()
+        pass
+
+    def mainTable(self):
+        # 设置表格
+        self.mainForm.actionTable.setRowCount(1)
+        self.mainForm.actionTable.setColumnCount(4)
+
+        # 设置表头
+        self.mainForm.actionTable.setHorizontalHeaderLabels(
+            ['标题', '快捷键', '功能', '备注'])
+
+        # item1 = QTableWidgetItem('Alice')
+        item1 = QTableWidgetItem(
+            'AliceAliceAliceAliceAliceAliceAliceAliceAliceAliceAliceAliceAliceAlice')
+        item2 = QTableWidgetItem('25')
+        self.mainForm.actionTable.setItem(0, 0, item1)
+        self.mainForm.actionTable.setItem(0, 1, item2)
+
+        # 设置列宽自适应
+        # self.mainForm.actionTable.horizontalHeader(
+        # ).setSectionResizeMode(QHeaderView.Stretch)
+
+        # self.mainForm.actionTable.setHorizontalScrollBarPolicy(
+        #     Qt.ScrollBarAlwaysOn)
+
+        # 设置列宽自适应
+        self.mainForm.actionTable.horizontalHeader(
+        ).setSectionResizeMode(QHeaderView.Stretch)
+
+        # 设置表格的最小宽度为所有列的总宽度
+        # self.mainForm.actionTable.setMinimumWidth(self.mainForm.actionTable.horizontalHeader().length())
+
+        # 启用水平滚动条
+        self.mainForm.actionTable.setHorizontalScrollBarPolicy(
+            Qt.ScrollBarAlwaysOn)
+
+        # 设置表头居左
+        self.mainForm.actionTable.horizontalHeader().setDefaultAlignment(Qt.AlignLeft)
+
+        # 不显示序号和框线
+        self.mainForm.actionTable.verticalHeader().setVisible(False)
+        self.mainForm.actionTable.setShowGrid(False)
+
+        #
+
+        # 设置点击时选中整行
+        self.mainForm.actionTable.setSelectionBehavior(
+            QAbstractItemView.SelectRows)
         pass
 
     def show_window(self):
@@ -53,12 +105,24 @@ class MainForm(QWidget):
         self.showNormal()
         self.activateWindow()
 
+    # 点击图标显示主窗口
+    def onTrayActivated(self, reason):
+        if reason == QSystemTrayIcon.Trigger:
+            if not self.isVisible():
+                self.show()
+        pass
+
+    def closeEvent(self, event):
+        # 将关闭事件改为最小化
+        # event.ignore()
+        # self.hide()
+        exit()
+
     # 设置窗口样式
     def init_appearance(self):
         # 设置窗口无边框
         # self.setAttribute(Qt.WA_TranslucentBackground)
         # self.setWindowFlags(Qt.FramelessWindowHint | Qt.Window)
-
         pass
 
     # 设置窗口的功能
