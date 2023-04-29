@@ -1,0 +1,15 @@
+{
+    "actions": [{
+        "name": "计算器",
+        "type": 1,
+        "shortcut": "Ctrl+Q",
+        "target": "C:\\Windows\\System32\\calc.exe",
+        "desc": ""
+    }, {
+        "name": "CMD",
+        "type": 2,
+        "shortcut": "Ctrl+T",
+        "target": "start cmd /k",
+        "desc": ""
+    }]
+}

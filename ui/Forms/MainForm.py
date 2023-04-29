@@ -1,13 +1,13 @@
-
-from re import S
 from PyQt5.QtWidgets import QWidget
-from ui.Forms.Ui_MainForm import Ui_Form
+from ui.Forms.pyuic.Ui_MainForm import Ui_Form
 from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QPoint, QRectF
 from PyQt5.QtGui import QMouseEvent, QColor, QPainter, QPainterPath, QBrush
-
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QAction, QWidget, QAbstractItemView, QTableWidgetItem, QHeaderView
+from ui.Forms.OpenFileWidget import OpenFileWidget
+import LoadConfig
+import LoadActions
 
 
 class MainForm(QWidget):
@@ -50,6 +50,38 @@ class MainForm(QWidget):
         self.tray_icon.show()
 
         self.mainTable()
+
+        # 添加菜单
+        menu = QMenu(self)
+        action1 = QAction('运行程序或打开文件', self)
+        action2 = QAction('执行命令', self)
+        action3 = QAction('运行Python脚本', self)
+        menu.addAction(action1)
+        menu.addAction(action2)
+        menu.addAction(action3)
+
+        # 连接QAction对象的triggered信号到槽函数
+        action1.triggered.connect(self.onAction1Clicked)
+        action2.triggered.connect(self.onAction2Clicked)
+
+        # 将菜单与按钮关联
+        self.mainForm.btnAdd.setMenu(menu)
+
+        LoadConfig.loadConfig()
+        LoadActions.loadActions()
+        pass
+
+    def onAction1Clicked(self):
+        self.openFileWidget = OpenFileWidget(self)
+        # widget.setGeometry(100, 100, 200, 100)
+        self.openFileWidget.setWindowModality(2)
+        self.openFileWidget.show()
+
+        print(1)
+        pass
+
+    def onAction2Clicked(self):
+        print(2)
         pass
 
     def mainTable(self):
@@ -59,7 +91,7 @@ class MainForm(QWidget):
 
         # 设置表头
         self.mainForm.actionTable.setHorizontalHeaderLabels(
-            ['标题', '快捷键', '功能', '备注'])
+            ['名称', '快捷键', '功能', '备注'])
 
         # item1 = QTableWidgetItem('Alice')
         item1 = QTableWidgetItem(
@@ -92,8 +124,6 @@ class MainForm(QWidget):
         # 不显示序号和框线
         self.mainForm.actionTable.verticalHeader().setVisible(False)
         self.mainForm.actionTable.setShowGrid(False)
-
-        #
 
         # 设置点击时选中整行
         self.mainForm.actionTable.setSelectionBehavior(
