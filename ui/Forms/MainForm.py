@@ -55,10 +55,10 @@ class MainForm(QWidget):
         menu = QMenu(self)
         action1 = QAction('运行程序或打开文件', self)
         action2 = QAction('执行命令', self)
-        action3 = QAction('运行Python脚本', self)
+        # action3 = QAction('运行Python脚本', self)
         menu.addAction(action1)
         menu.addAction(action2)
-        menu.addAction(action3)
+        # menu.addAction(action3)
 
         # 连接QAction对象的triggered信号到槽函数
         action1.triggered.connect(self.onAction1Clicked)

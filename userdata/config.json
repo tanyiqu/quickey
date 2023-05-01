@@ -1,14 +1,30 @@
 {
     "actions": [{
-        "name": "计算器",
+        "name": "Ctrl+Q 计算器",
         "type": 1,
+        "shortcut_type": 1,
         "shortcut": "Ctrl+Q",
         "target": "C:\\Windows\\System32\\calc.exe",
         "desc": ""
     }, {
-        "name": "CMD",
+        "name": "双击Ctrl 计算器",
+        "type": 1,
+        "shortcut_type": 2,
+        "shortcut": "Ctrl",
+        "target": "C:\\Windows\\System32\\calc.exe",
+        "desc": ""
+    }, {
+        "name": "Ctrl+T CMD",
         "type": 2,
+        "shortcut_type": 1,
         "shortcut": "Ctrl+T",
+        "target": "start cmd /k",
+        "desc": ""
+    }, {
+        "name": "双击Alt CMD",
+        "type": 2,
+        "shortcut_type": 2,
+        "shortcut": "alt",
         "target": "start cmd /k",
         "desc": ""
     }]

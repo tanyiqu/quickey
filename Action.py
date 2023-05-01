@@ -11,6 +11,7 @@ class Action(object):
             self.name = dict['name']
             self.type = dict['type']
             self.shortcut = dict['shortcut']
+            self.shortcut_type = dict['shortcut_type']
             self.desc = dict['desc']
             self.target = dict['target']
         except KeyError:
